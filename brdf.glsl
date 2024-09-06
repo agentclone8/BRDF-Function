@@ -1,4 +1,4 @@
-vec3 brdf(vec3 lightDir, vec3 viewDir, float roughness, vec3 normal, vec3 albedo, float metallic, vec3 reflectance, bool diffuseOnly, bool reflectionPass) {
+vec3 brdf(vec3 lightDir, vec3 viewDir, float roughness, vec3 normal, vec3 albedo, float metallic, vec3 reflectance) {
     
     float alpha = pow(roughness,2);
 
@@ -33,14 +33,6 @@ vec3 brdf(vec3 lightDir, vec3 viewDir, float roughness, vec3 normal, vec3 albedo
     vec3 cookTorrance = (fresnelReflectance*normalDistributionFunctionGGX*geometry)/(4*NdotL*NdotV);
     
     vec3 BRDF = (phongDiffuse+cookTorrance)*NdotL;
-
-    if (diffuseOnly) {
-        BRDF = (phongDiffuse)*NdotL;
-    }
-
-    if (reflectionPass) {
-        BRDF = fresnelReflectance;
-    }
    
     vec3 diffFunction = BRDF;
     
